@@ -1,0 +1,14 @@
+{
+    "hello":"Hello Kaetanu",
+    "homePage":"Home",
+    "aboutPage":"About",
+    "welcome": "Hello {name}",
+    "errorList" : "Could not obtain list of data",
+    "serialNumber": "Serial Number",
+    "description": "Description",
+    "name" : "Name",
+    "enable" : "Enable",
+    "usernameLabel" : "Username",
+    "passwordLabel" : "Password",
+    "createAccount": "Don't have an account yet? Sign up."
+}

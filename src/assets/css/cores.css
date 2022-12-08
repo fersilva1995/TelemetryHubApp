@@ -1,0 +1,13 @@
+:root{
+	--dashboard-background-color: rgba(17, 27, 40, 0.712);
+    --dashboard-border-color: white;
+    --dashboard-outline-color: rgba(19, 253, 242, 0.25);
+    --dashboard-title-backgrounds: #0000003b;
+
+
+    --display-good-color: yellowgreen;
+    --display-neutral-color: yellow;
+    --display-bad-color: red;
+    --display-background-color: #bbb3b3;
+
+}

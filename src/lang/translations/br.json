@@ -1,0 +1,14 @@
+{
+    "hello":"Seja bem-vindo",
+    "homePage":"Home",
+    "aboutPage":"Sobre",
+    "welcome": "Bem-vindo {name}",
+    "errorList" : "Não foi possível obter a lista de dados",
+    "serialNumber": "Número de Série",
+    "description": "Descrição",
+    "name" : "Nome",
+    "enable" : "Habilitado",
+    "usernameLabel" : "Usuário",
+    "passwordLabel" : "Senha",
+    "createAccount": "Não tem conta ainda? Crie agora."
+}
