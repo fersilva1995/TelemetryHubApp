@@ -1,33 +1,47 @@
 /* eslint-disable */
  <template>
- <div>
-    <b-container fluid="lg">
-        <b-row>
-            <div>
-                <!-- <b-img center :src="require('../assets/tmHub_white.png')" alt="TelemetryHubLogo" class="logoTop"></b-img> -->
-            </div>
+ <div >
+    <b-container fluid="lg" class="d-flex align-items-center justify-content-center" style="min-height: 90vh; width:100vw !important">
+        <b-col>
+            
+            <h1>Login</h1>
+            <p>For your protection, please verify your identity.</p>
             <b-col>
-                <form class="center">
+                <form>
                     <div class="login">
-                        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                            <b-form-group id="usernameInput" label-for="username" class="form">
-                                <b-form-input id="username" v-model="form.name" :placeholder="$i18n.t('usernameLabel')" required class="input" autocomplete="off"></b-form-input>
+                        <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="form">
+                            <b-form-group
+                            class="input"
+                            invalid-feedback="Digite um email válido"
+                            :state="emailState"
+                            >
+                                <label id="emailLabel" class="input" for="emailInput" style="width:100%; max-width:500px">Email <span class="required" >*</span></label>
+                                <b-form-input :state="emailState" id="emailInput" v-model="form.email" required trim></b-form-input>
                             </b-form-group>
-                            <b-form-group id="passwordInput" label-for="password" class="form">
-                                <b-form-input id="password" v-model="form.email" type="password" :placeholder="$i18n.t('passwordLabel')" required class="input"></b-form-input>
+    
+                            <b-form-group 
+                            class="input" 
+                            invalid-feedback="Digite uma senha válida" 
+                            :state="passwordState">
+                                <label id="passwordLabel" class="input" for="passwordInput" style="width:100%; max-width:500px">Senha <span class="required">*</span></label>
+                                <b-form-input :state="passwordState"  id="passwordInput" v-model="form.password" type="password" required class="input"></b-form-input>
                             </b-form-group>
-                            <myButton type="button" title="Login" buttonStyle="outline-primary" @buttonAction="login()"></myButton>
-                            <div>
-                                <myLabel :text="$i18n.t('createAccount')"></myLabel>
-                            </div>                          
+
+                            <div class="mt-2">
+                                <myButton type="submit" title="Login" buttonStyle="outline-primary" @buttonAction="login()"></myButton>
+                                <div>
+                                    <myLabel :text="$i18n.t('createAccount')" class="label"></myLabel>
+                                </div>   
+                            </div>
                         </b-form>
                     </div>
-                    <div>
-                        <!-- <b-img center src="src/assets/mtw_white.png" alt="MTW Logo" class="logoFooter"></b-img> -->
+                    <div class="w-100 d-flex flex-column">
+                        <b-img center :src="require('../../assets/mtw_white.png')" alt="MTW Logo" class="logoTop"></b-img>
+                        <!-- <b-img center :src="require('../../assets/tmHub_white.png')" alt="TelemetryHubLogo" class="logoTop"></b-img> -->
                     </div>
                 </form>
             </b-col>
-        </b-row>
+        </b-col>
     </b-container>
  </div>
 
@@ -49,13 +63,21 @@ export default {
             form: {
                 email: '',
                 name: '',
+                password: '',
                 food: null,
                 checked: []
             },
             show: true,
         }
     },
-
+    computed:{
+        emailState(){
+            return this.form.email.length > 2
+        },
+        passwordState(){
+            return this.form.password.length > 4
+        }
+    },
    methods: {
         onSubmit(event) {
             event.preventDefault()
@@ -77,10 +99,31 @@ export default {
 
         },
 
+        // login() {
+        //     localStorage.logged = true;
+        //     // eslint-disable-next-line
+        //     MqttClient.send_message("mensagem teste", "SNTESTE");
+
+            
+        // }
         login() {
-            localStorage.logged = true;
-            // eslint-disable-next-line
-            MqttClient.send_message("mensagem teste", "SNTESTE");
+            console.log(this.username, this.password)
+            this.service = new this.$userService();
+            this.service.searchByUsernamePassword(this.username, this.password)
+            .then((element) => {
+                if(element.id > 0)
+                {
+                    console.log(element);
+                    this.$session.set('logged_id', element.id);
+                    this.$session.set('user', element);
+                    if(element.profile.name == "Operacao") {
+                        this.$session.set('privilege', 'op');
+                    } else {
+                        this.$session.set('privilege', 'admin');
+                    }
+                    this.$emit('login');
+                }
+            })
         }
     } 
 
@@ -89,16 +132,25 @@ export default {
 </script>
 
 <style scoped>
-
+    div{
+        text-align: center;
+    }
+    h1{
+        font-weight: 500;
+    }
     h3 {
         color: darkgrey;
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         font-weight: 700;
     }
-
+    p{
+        text-align: center;
+        color: white;
+        opacity: 0.5;
+    }
     .logoTop {
-        width: 450px;
-        margin-top: 5em;
+        height: 1.5rem;
+        margin-top: 2em;
     }
     
     .logoFooter {
@@ -122,18 +174,42 @@ export default {
         margin-right: 35%;
         width: 30%;
     }
+    #emailLabel, #passwordLabel{
 
+        text-align: left;
+        color: white;
+        opacity: 0.75;
+        /* margin-bottom: 1rem; */
+    }
+
+    #emailInput, #passwordInput{
+        height: 3rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border: 0.1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 8px;
+    }
+    .required{
+        color: rgba(255,96,96);
+    }
+    .label{
+        color: #54a0f1;
+        text-decoration: underline;
+        font-weight: 100;
+    }
     .form {
         padding: 10px;
     }
 
     .input {
-        max-width: 300px;
+        max-width: 400px;
         margin: 0 auto;
         background-color: transparent;
         border-radius: 10px;
         border-color: gray;
         color: gray;
         text-align: center;
+        margin-bottom: 0.5rem;
     }
 </style>

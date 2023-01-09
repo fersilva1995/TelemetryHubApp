@@ -1,5 +1,5 @@
 <template>
-    <b-button :to="pageLink" @click="triggerAction()" class="button" :variant="buttonStyle" :type="type">{{ title }}</b-button>
+    <b-button :to="pageLink" @click="triggerAction" class="button" :variant="buttonStyle" :type="type" >{{ title }}</b-button>
 </template>
 
 <script>
@@ -23,8 +23,10 @@ export default {
     },
 
     methods: {
-        triggerAction() {
-            // console.log("Ola mundo");
+        triggerAction(e) {
+            // ! TODO: FIXME: Deletar!!
+            e.preventDefault();
+            //
             this.$emit('buttonAction');
         }
     },
