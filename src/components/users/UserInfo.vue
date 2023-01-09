@@ -127,7 +127,6 @@ export default {
             }else return false
         },
         async findAdress(cep){
-            console.warn(cep)
             const a = await axios.get('https://viacep.com.br/ws/'+ cep + '/json/').then(res => {
                 const response = res.data
                 if(response.erro == undefined){
@@ -190,7 +189,6 @@ export default {
                 rev = 0;	
             if (rev != parseInt(cpf.charAt(10)))
                 return false;		
-            else console.error(rev, parseInt(cpf.charAt(9)))
             return true;   
         },
         cnpjValidation(cnpj){

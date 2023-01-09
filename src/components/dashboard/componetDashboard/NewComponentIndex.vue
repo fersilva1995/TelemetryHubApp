@@ -25,7 +25,8 @@ export default {
 		return{
 			scale: 0,
 			height: 0,
-			component: undefined 
+			component: undefined,
+			info: {}
 		}
 	},
 	props:{
@@ -52,14 +53,11 @@ export default {
 				this.scale = 1;
 				this.height = 'auto'
 				this.info = info
-				console.log("AAAAAAAAAAAAAA")
 				this.component = e == "display" ? "DisplayInfo" : "GroupInfo"
 				clearTimeout(closingTime)
 			},300) 
 		},
-		close(closeTabs=false){
-			console.log(closeTabs)
-			// if(closeTabs) this.$refs.buttons.showAddButtons(1)
+		close(){
 			this.scale = 0;
 			this.height = 0
 		},

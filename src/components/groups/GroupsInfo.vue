@@ -8,13 +8,14 @@
       <TextInput ref="description" name="description" label="Descrição" :required="true" @changeValue="(value) => previewForm.description = value"/>
     </div>
 
-    <div class="w-100 mb-4" v-if="!onDashboard">
+    <!-- Não exibe essa parte na dashboard -->
+    <div class="w-100 mb-4" v-if="!onDashboard"> 
       <hr>
       <h3>Dashboards</h3>
-      <relation-table/>
+      <relation-table :items="relationTableItems"/>
       <hr>
       <h3>Measurers</h3>
-      <relation-table/>
+      <relation-table :items="relationTableItems"/>
     </div>
     <div class="w-100 mb-4 mr-2 ml-2">
       <myButton type="button" title="Remover" buttonStyle="outline-danger" class="mr-1 control"></myButton>
@@ -34,7 +35,14 @@ export default {
       previewForm: {
         name: '',
         description: ''
-      }
+      },
+      relationTableItems: [
+                {id: 1, text: "Grupo 1"},
+                {id: 2, text: "Grupo 2"},
+                {id: 3, text: "Grupo 3"},
+                {id: 4, text: "Grupo 4"},
+                {id: 5, text: "Grupo 5"},
+            ],
     }
   },
   components:{
@@ -64,7 +72,6 @@ export default {
   watch:{
     previewForm:{
       handler(){
-        console.log("a")
         this.$emit("previewChanges", this.previewForm)
       },
       deep: true

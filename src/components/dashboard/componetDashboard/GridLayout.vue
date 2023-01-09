@@ -27,6 +27,7 @@
             <DisplayCard 
             :info="item" 
             :inGroup="true"
+            @changeDisplay="changeDisplay(item, ...arguments)"
             @deleteCard="deleteCard(item, index)"/>
 
         </grid-item>
@@ -111,12 +112,10 @@ export default {
 				};
 
 				let new_pos = el.calcXY(cardPos.y - this.groupDimensions.top, cardPos.x - this.groupDimensions.left);
-                console.warn(new_pos.x, new_pos.y)
 				this.$refs.Group.dragEvent('dragstart', 'drop', new_pos.x, new_pos.y, 1, 1);
 				DragPos.i = String(index);
 				DragPos.x = this.groupPositions[index].x;
 				DragPos.y = this.groupPositions[index].y;
-                console.log(DragPos)
 
                 this.$root.$refs.gridLayout = this
 			}
@@ -137,7 +136,6 @@ export default {
 			});
             this.$root.$refs.NewComponentIndex.close(true)
             this.$root.$refs.NewComponentIndex.$refs.buttons.showAddButtons(true)
-            console.error(this.groupDisplays, this.groupPositions)
         },
         deleteCard(item, index){
             this.toBeDeleted = {item, index}
@@ -151,9 +149,10 @@ export default {
             this.toBeDeleted = {}
         },
         editCard(){
-            console.log("aaaaaaaaaaaaaaaa")
-            console.warn(this.toBeDeleted.item)
             this.$root.$refs.NewComponentIndex.open("display", this.toBeDeleted.item)
+        },
+        changeDisplay(oldCardConfig, newDisplay){
+            console.warn("AA", oldCardConfig, newDisplay)
         }
     },
     mounted(){

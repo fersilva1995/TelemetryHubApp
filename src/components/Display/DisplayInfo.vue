@@ -6,6 +6,7 @@
         <div class="control">
             <SelectInput name="type" label="tipo" :options="options" :selected="options[0]" :required="true" @change="(newValue) => display.type = newValue.text"/>
         </div>
+
         <div class="control">
             <TextInput name="unit" label="Unidade" :disabled="disabled" :required="true" @changeValue="(newValue) => display.unit = newValue"/>
         </div>
@@ -139,7 +140,6 @@ export default {
                     this.display.unit = ""
                     this.display.constant = ""
                 }
-                console.log(this.display)
                 this.$emit("change", this.display)
 
             },

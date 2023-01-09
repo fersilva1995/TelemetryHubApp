@@ -50,11 +50,6 @@ export default {
             required:false
         }
     },
-    watch:{
-        isDraggingFromOutside(){
-            console.error("a")
-        }
-    }
 }
 </script>
 

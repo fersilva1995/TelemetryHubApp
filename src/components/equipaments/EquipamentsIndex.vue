@@ -29,7 +29,6 @@ export default {
     methods:{
         show(){
             this.$refs.table.showAddElement()
-            console.log("aaaaaaa")
         }
     }
 }

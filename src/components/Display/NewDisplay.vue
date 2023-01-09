@@ -48,7 +48,6 @@ export default {
 			document.querySelector(".form").style.display = 'none'
 			document.querySelector(".card").style.cursor = 'grab'
 			this.created = true
-			console.warn(this.created)
 		},
 		dropped(){
 			document.querySelector(".preview").style.gridColumn = '1/2'

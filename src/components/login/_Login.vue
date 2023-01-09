@@ -107,13 +107,11 @@ export default {
             
         // }
         login() {
-            console.log(this.username, this.password)
             this.service = new this.$userService();
             this.service.searchByUsernamePassword(this.username, this.password)
             .then((element) => {
                 if(element.id > 0)
                 {
-                    console.log(element);
                     this.$session.set('logged_id', element.id);
                     this.$session.set('user', element);
                     if(element.profile.name == "Operacao") {

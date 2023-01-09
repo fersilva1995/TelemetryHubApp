@@ -37,18 +37,12 @@
 export default {
     data(){
         return{
-            // avaliableItems: [
-            //     {id: 1, text: "Grupo 1"},
-            //     {id: 2, text: "Grupo 2"},
-            //     {id: 3, text: "Grupo 3"},
-            //     {id: 4, text: "Grupo 4"},
-            //     {id: 5, text: "Grupo 5"},
-            // ],
-
             addItems: [],
             removeItems: [],
 
-            selectedItems:[]
+            selectedItems:[],
+
+            avaliableItems: []
         }
     },
     props:{
@@ -99,6 +93,9 @@ export default {
             })
         }
     },
+    mounted() {
+        this.avaliableItems = this.items
+    }
 }
 </script>
 

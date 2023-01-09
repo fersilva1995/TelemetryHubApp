@@ -16,6 +16,7 @@
                 <div class="w-100 d-flex justify-content-end" style="gap: 0.5rem">
                     <b-icon-eye-fill id="popover-3"/>
                     <b-icon-arrows-fullscreen/>
+                    <DisplayPopover :disabled="!created" @changeDisplay="changeDisplay"/>
                 </div>
 			</div>
 		</template>
@@ -44,6 +45,9 @@ import TextDisplay          from "./DisplayComponents/TextDisplay.vue"
 import ChartDisplay         from "./DisplayComponents/ChartDisplay.vue"
 import TraficLightDisplay   from "./DisplayComponents/TraficLightDisplay.vue"
 
+import DisplayPopover       from "./DisplayPopover.vue"
+
+
 export default {
     components:{
         GaugeDisplay,
@@ -52,6 +56,7 @@ export default {
         TextDisplay,
         ChartDisplay,
         TraficLightDisplay,
+        DisplayPopover
     },
     props:{
         info:{
@@ -102,7 +107,6 @@ export default {
 			}
 		},
 		dragend: function (e) {
-			console.warn(this.$parent)
             if(this.$root.$refs.gridLayout.mouseInArea()){
                 this.$root.$refs.gridLayout.addCard(e, this.info)
                 this.$emit("drop")
@@ -119,11 +123,9 @@ export default {
                 this.$root.$refs.NewComponentIndex.open("display", this.info)
             }
         },
-        historyDisplay(){
-            if(this.inGroup){
-                console.log("history")
-            }
-        },
+        changeDisplay(newDisplay){
+            this.$emit('changeDisplay', newDisplay)
+        }
     },
 }
 </script>

@@ -34,7 +34,6 @@ export default {
     },
     methods:{
         changePreview(values){
-            console.log(values)
             this.previewValues = values
         }
     },

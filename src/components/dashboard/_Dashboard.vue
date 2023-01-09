@@ -57,7 +57,6 @@ export default {
 	methods:{
 		newGroup(e){
 			this.groups.push(e)
-			console.log(this.groups)
 		},
 		showModal(index){
 			this.varGroupKey = index
@@ -65,7 +64,6 @@ export default {
 		},
 		deleteCard(){
 			this.$bvModal.hide('modalPopover')
-			console.warn(this.$refs.grid)
 			this.$refs.grid[this.varGroupKey].confirmDelete();
 		},
 		editCard(){

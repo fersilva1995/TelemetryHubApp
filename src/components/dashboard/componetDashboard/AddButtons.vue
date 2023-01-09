@@ -24,9 +24,7 @@ export default {
 	methods:{
 		showAddButtons(state){
 			this.scale = state
-			console.log(this.scale)
 			if(this.scale){
-				console.warn("a")
 				this.scale = 0;
 
 				this.$emit("close", "display")
@@ -41,7 +39,6 @@ export default {
 
 			}
 			else{
-				console.error("b")
 				this.scale = 1;
 				this.firstButtonStyle = "success"
 			}

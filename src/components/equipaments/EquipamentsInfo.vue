@@ -33,12 +33,8 @@
 
 		<div class="w-100 btnGroup">
 			<hr>
-			<h1>Teste</h1>
-			<RelationTable :items="options"/>
-		</div>
-		<div class="w-100 btnGroup">
-			<hr>
-			<SelectInput name="group" label="Grupos" :options="[]" :required="true"/>
+			<h1>Grupos</h1>
+			<RelationTable :items="optionGroups"/>
 		</div>
 
 
@@ -85,6 +81,14 @@ export default {
 				{id:14, value: 14, text: "HD" },
 				{id:15, value: 15, text: "Outro" }
 			],
+			optionGroups: [
+                {id: 1, text: "Grupo 1"},
+                {id: 2, text: "Grupo 2"},
+                {id: 3, text: "Grupo 3"},
+                {id: 4, text: "Grupo 4"},
+                {id: 5, text: "Grupo 5"},
+            ],
+			form: {}
 		}
 	}
 }
