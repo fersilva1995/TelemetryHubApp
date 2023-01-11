@@ -7,7 +7,7 @@ class MqttClient {
     static start() {
         this.reconnectTimeout = 2000;
         this.cname = "orderform-"+Math.floor(Math.random() * 10000); 
-        this.host = "localhost";
+        this.host = "172.16.2.218";
         this.port = 9001; 
         VarCode.start();
 

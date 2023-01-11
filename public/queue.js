@@ -1,5 +1,3 @@
-
-
 class Queue {
 
     constructor() {

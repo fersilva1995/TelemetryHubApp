@@ -5,7 +5,6 @@
         <b-col>
             
             <h1>Login</h1>
-            <p>For your protection, please verify your identity.</p>
             <b-col>
                 <form>
                     <div class="login">
@@ -99,13 +98,6 @@ export default {
 
         },
 
-        // login() {
-        //     localStorage.logged = true;
-        //     // eslint-disable-next-line
-        //     MqttClient.send_message("mensagem teste", "SNTESTE");
-
-            
-        // }
         login() {
             console.log(this.username, this.password)
             this.service = new this.$userService();

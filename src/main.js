@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import VueSession from "vue-session"
 import { routes } from './routes';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import { i18n } from './lang/lang'
@@ -14,65 +16,65 @@ import VueResizeText from 'vue-resize-text';
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 
 
-import {Display}                          from '../../UtilsTelemetry/Display.js'
-import {Groups}                           from '../../UtilsTelemetry/Groups.js'
+import {Display}                          from '../../../UtilsTelemetry/Display.js'
+import {Groups}                           from '../../../UtilsTelemetry/Groups.js'
 
-import action                             from '../../UtilsTelemetry/domain/action/Action' 
-import actionService                      from '../../UtilsTelemetry/domain/action/ActionService' 
+import action                             from '../../../UtilsTelemetry/domain/action/Action' 
+import actionService                      from '../../../UtilsTelemetry/domain/action/ActionService' 
 
-import alarm                              from '../../UtilsTelemetry/domain/alarm/Alarm' 
-import alarmService                       from '../../UtilsTelemetry/domain/alarm/AlarmService' 
+import alarm                              from '../../../UtilsTelemetry/domain/alarm/Alarm' 
+import alarmService                       from '../../../UtilsTelemetry/domain/alarm/AlarmService' 
 
-import alarmConfiguration                 from '../../UtilsTelemetry/domain/alarmConfiguration/AlarmConfiguration' 
-import alarmConfigurationService          from '../../UtilsTelemetry/domain/alarmConfiguration/AlarmConfigurationService' 
+import alarmConfiguration                 from '../../../UtilsTelemetry/domain/alarmConfiguration/AlarmConfiguration' 
+import alarmConfigurationService          from '../../../UtilsTelemetry/domain/alarmConfiguration/AlarmConfigurationService' 
 
-import colorConfig                        from '../../UtilsTelemetry/domain/colorConfig/ColorConfig' 
-import colorConfigService                 from '../../UtilsTelemetry/domain/colorConfig/ColorConfigService' 
+import colorConfig                        from '../../../UtilsTelemetry/domain/colorConfig/ColorConfig' 
+import colorConfigService                 from '../../../UtilsTelemetry/domain/colorConfig/ColorConfigService' 
 
-import condition                          from '../../UtilsTelemetry/domain/condition/Condition' 
-import conditionService                   from '../../UtilsTelemetry/domain/condition/ConditionService' 
+import condition                          from '../../../UtilsTelemetry/domain/condition/Condition' 
+import conditionService                   from '../../../UtilsTelemetry/domain/condition/ConditionService' 
 
-import dashboard                          from '../../UtilsTelemetry/domain/dashboard/Dashboard' 
-import dashboardService                   from '../../UtilsTelemetry/domain/dashboard/DashboardService' 
+import dashboard                          from '../../../UtilsTelemetry/domain/dashboard/Dashboard' 
+import dashboardService                   from '../../../UtilsTelemetry/domain/dashboard/DashboardService' 
 
-import devices                            from '../../UtilsTelemetry/domain/devices/Devices' 
-import devicesService                     from '../../UtilsTelemetry/domain/devices/DevicesService' 
+import devices                            from '../../../UtilsTelemetry/domain/devices/Devices' 
+import devicesService                     from '../../../UtilsTelemetry/domain/devices/DevicesService' 
 
-import display                            from '../../UtilsTelemetry/domain/display/Display' 
-import displayService                     from '../../UtilsTelemetry/domain/display/DisplayService' 
+import display                            from '../../../UtilsTelemetry/domain/display/Display' 
+import displayService                     from '../../../UtilsTelemetry/domain/display/DisplayService' 
 
-import equipaments                        from "../../UtilsTelemetry/domain/equipaments/Equipaments"
-import equipamentsHeader                  from "../../UtilsTelemetry/domain/equipaments/EquipamentsHeader"
-import equipamentsService                 from "../../UtilsTelemetry/domain/equipaments/EquipamentsService"
+import equipaments                        from "../../../UtilsTelemetry/domain/equipaments/Equipaments"
+import equipamentsHeader                  from "../../../UtilsTelemetry/domain/equipaments/EquipamentsHeader"
+import equipamentsService                 from "../../../UtilsTelemetry/domain/equipaments/EquipamentsService"
 
-import group                              from "../../UtilsTelemetry/domain/group/Group.js"
-import groupService                       from '../../UtilsTelemetry/domain/group/GroupsService'
-import groupHeader                        from '../../UtilsTelemetry/domain/group/GroupHeader' 
+import group                              from "../../../UtilsTelemetry/domain/group/Group.js"
+import groupService                       from '../../../UtilsTelemetry/domain/group/GroupsService'
+import groupHeader                        from '../../../UtilsTelemetry/domain/group/GroupHeader' 
 
-import layer                              from '../../UtilsTelemetry/domain/layer/Layer' 
-import layerService                       from '../../UtilsTelemetry/domain/layer/LayerService' 
+import layer                              from '../../../UtilsTelemetry/domain/layer/Layer' 
+import layerService                       from '../../../UtilsTelemetry/domain/layer/LayerService' 
 
-import measurer                           from '../../UtilsTelemetry/domain/measurer/Measurer' 
-import measurerService                    from '../../UtilsTelemetry/domain/measurer/MeasurerService' 
+import measurer                           from '../../../UtilsTelemetry/domain/measurer/Measurer' 
+import measurerService                    from '../../../UtilsTelemetry/domain/measurer/MeasurerService' 
 
-import recipient                          from '../../UtilsTelemetry/domain/recipient/Recipient' 
-import recipientService                   from '../../UtilsTelemetry/domain/recipient/RecipientService' 
+import recipient                          from '../../../UtilsTelemetry/domain/recipient/Recipient' 
+import recipientService                   from '../../../UtilsTelemetry/domain/recipient/RecipientService' 
 
-import schedule                           from '../../UtilsTelemetry/domain/schedule/Schedule' 
-import scheduleService                    from '../../UtilsTelemetry/domain/schedule/ScheduleService' 
+import schedule                           from '../../../UtilsTelemetry/domain/schedule/Schedule' 
+import scheduleService                    from '../../../UtilsTelemetry/domain/schedule/ScheduleService' 
 
-import updater                            from '../../UtilsTelemetry/domain/updater/Updater' 
-import updaterService                     from '../../UtilsTelemetry/domain/updater/UpdaterService' 
+import updater                            from '../../../UtilsTelemetry/domain/updater/Updater' 
+import updaterService                     from '../../../UtilsTelemetry/domain/updater/UpdaterService' 
 
-import user                               from '../../UtilsTelemetry/domain/user/User' 
-import userService                        from '../../UtilsTelemetry/domain/user/UserService' 
-import userHeader                         from '../../UtilsTelemetry/domain/user/UserHeader' 
+import user                               from '../../../UtilsTelemetry/domain/user/User' 
+import userService                        from '../../../UtilsTelemetry/domain/user/UserService' 
+import userHeader                         from '../../../UtilsTelemetry/domain/user/UserHeader' 
 
-import variable                           from '../../UtilsTelemetry/domain/variable/Variable' 
-import variableService                    from '../../UtilsTelemetry/domain/variable/VariableService' 
+import variable                           from '../../../UtilsTelemetry/domain/variable/Variable' 
+import variableService                    from '../../../UtilsTelemetry/domain/variable/VariableService' 
 
-import variableCodes                      from '../../UtilsTelemetry/domain/variableCodes/VariableCodes' 
-import variableCodesService               from '../../UtilsTelemetry/domain/variableCodes/VariableCodesService' 
+import variableCodes                      from '../../../UtilsTelemetry/domain/variableCodes/VariableCodes' 
+import variableCodesService               from '../../../UtilsTelemetry/domain/variableCodes/VariableCodesService' 
 
 
 
@@ -140,14 +142,13 @@ Vue.prototype.$variableService = variableService;
 Vue.prototype.$variableCodes = variableCodes;
 Vue.prototype.$variableCodesService = variableCodesService;
 
-Vue.use(VueResource); 
-Vue.http.options.root = 'http://localhost:8080';
-
 Vue.use(VueRouter);
 Vue.use(VueI18n);
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
-Vue.use(VueResizeText)
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+Vue.use(VueResizeText);
+Vue.use(VueAxios, axios);
+Vue.use(VueSession);
 
 Vue.component('v-select', vSelect)
 Vue.use(VueSidebarMenu)
